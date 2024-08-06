@@ -1,3 +1,0 @@
-[submodule "external_libs/42_libs"]
-	path = external_libs/42_libs
-	url = git@github.com:michmos/42_libs.git
