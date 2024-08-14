@@ -6,7 +6,7 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 16:52:32 by mmoser            #+#    #+#             */
-/*   Updated: 2024/08/12 17:33:53 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/08/14 12:42:47 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,12 @@ typedef struct s_philo
 	t_mtx_bool		dead;
 	t_mtx_bool		start;
 	t_mtx_bool		terminate;
+	t_mtx_bool		hungry;
 
 	size_t			idx;
 	pthread_t		tid;
 	long			last_eat_time;
+	int				times_eaten;
 	long			start_time;
 	pthread_mutex_t *frst_fork;
 	pthread_mutex_t	*scnd_fork;

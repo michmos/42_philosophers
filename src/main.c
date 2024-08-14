@@ -6,7 +6,7 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 16:54:20 by mmoser            #+#    #+#             */
-/*   Updated: 2024/08/12 17:56:40 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/08/14 13:21:34 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,31 @@ void	*lifecycle(void *arg)
 void	monitor_philos(t_philo **philos)
 {
 	size_t	i;
+	bool	found_hungry_philo;
 	
 	i = 0;
-	// find dead philo
-	while (!get_mtx_bool(&philos[i]->dead))
+	// find dead philo or all philos full
+	while (true)
 	{
-		i++;
-		if (i == (*philos)->params->num_philos)
-			i = 0;
+		i = 0;
+		found_hungry_philo = false;
+		while (philos[i])
+		{
+			if (get_mtx_bool(&philos[i]->dead))
+			{
+				print_state_change(DIED, philos[i], get_mic_sec_since(philos[i]->start_time)/1000);
+				return;
+			}
+			else if (get_mtx_bool(&philos[i]->hungry))
+			{
+				found_hungry_philo = true;
+			}
+			i++;
+		}
+
+		if (!found_hungry_philo)
+			return ;
 	}
-	print_state_change(DIED, philos[i], get_mic_sec_since(philos[i]->start_time)/1000);
 }
 
 int	main(int argc, char *argv[])

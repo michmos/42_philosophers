@@ -6,7 +6,7 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:35:40 by mmoser            #+#    #+#             */
-/*   Updated: 2024/08/09 18:07:56 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/08/14 12:52:58 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static t_philo	*create_philo(t_params *params, size_t idx)
 	{
 		return (NULL);
 	}
-	*philo = (t_philo) {.idx=idx, .params=params, .dead.val=false, .start.val=false, .terminate.val=false};
+	*philo = (t_philo) {.idx=idx, .params=params, .dead.val=false, .start.val=false, .terminate.val=false, .hungry.val = true};
 	if (init_locks(philo) == -1)
 	{
 		free(philo);

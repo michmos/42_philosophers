@@ -6,7 +6,7 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 11:58:29 by mmoser            #+#    #+#             */
-/*   Updated: 2024/08/12 17:56:00 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/08/14 12:56:01 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,11 @@ int	eat(t_philo *philo)
 	// eat
 	print_state_change(EATING, philo, get_mic_sec_since(philo->start_time)/1000);
 	philo->last_eat_time = get_mic_sec_since(philo->start_time);
-	// usleep(philo->params->t2e * 1000);
+	philo->times_eaten += 1;
+	if (philo->times_eaten == philo->params->eat_requ)
+	{
+		set_mtx_bool(&philo->hungry, false);
+	}
 	if (wait_mic_sec(philo, philo->params->t2e * 1000, get_mic_sec_since(0)) == -1)
 	{
 		set_mtx_bool(&philo->dead, true);
@@ -62,7 +66,6 @@ int	eat(t_philo *philo)
 int	my_sleep(t_philo *philo)
 {
 	print_state_change(SLEEPING, philo, get_mic_sec_since(philo->start_time)/1000);
-	// usleep(philo->params->t2s * 1000);
 	if (wait_mic_sec(philo, philo->params->t2s * 1000, get_mic_sec_since(0)) == -1)
 	{
 		set_mtx_bool(&philo->dead, true);
