@@ -6,7 +6,7 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 16:54:20 by mmoser            #+#    #+#             */
-/*   Updated: 2024/09/20 15:40:01 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/20 16:02:54 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	*lifecycle(void *arg)
 
 	// lifecycle
 	state = EATING;
-	while (! check_mtx_bool(&me->terminate) && me->times_eaten < me->params->eat_requ)
+	while (! check_mtx_bool(&me->terminate))
 	{
 		if (starved(me))
 		{
