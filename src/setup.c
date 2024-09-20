@@ -6,7 +6,7 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 13:23:24 by mmoser            #+#    #+#             */
-/*   Updated: 2024/09/19 11:32:09 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/20 15:39:55 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ static t_params	*parse_params(char *argv[])
 	}
 
 	params->num_philos = ft_atoi(argv[1]);
-	params->t2d = ft_atoi(argv[2]);
-	params->t2e = ft_atoi(argv[3]);
-	params->t2s = ft_atoi(argv[4]);
+	params->t2d = ft_atoi(argv[2]) * 1000;
+	params->t2e = ft_atoi(argv[3]) * 1000;
+	params->t2s = ft_atoi(argv[4]) * 1000;
 	params->eat_requ = -1;
 	if (argv[5])
 	{

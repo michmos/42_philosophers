@@ -6,7 +6,7 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 16:54:20 by mmoser            #+#    #+#             */
-/*   Updated: 2024/09/20 15:01:33 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/20 15:40:01 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	starved(t_philo *philo)
 {
-	return (get_mic_sec_since(philo->start_time) - philo->last_eat_time >= philo->params->t2d * 1000);
+	return (get_mic_sec_since(philo->start_time) - philo->last_eat_time >= philo->params->t2d);
 }
 
 void	*lifecycle(void *arg)

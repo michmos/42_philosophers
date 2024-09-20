@@ -6,7 +6,7 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:30:46 by mmoser            #+#    #+#             */
-/*   Updated: 2024/09/19 11:31:13 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/20 15:51:41 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,10 @@ size_t	ft_strlen(const char *str)
 	return (count);
 }
 
-long	get_mic_sec_since(long start_time)
+t_micsec	get_mic_sec_since(t_micsec start_time)
 {
 	struct timeval timeval;
-	long	time_in_micro;
+	t_micsec	time_in_micro;
 
 	if (gettimeofday(&timeval, NULL) == -1)
 		return (-1);

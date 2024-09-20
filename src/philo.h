@@ -6,7 +6,7 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 16:52:32 by mmoser            #+#    #+#             */
-/*   Updated: 2024/09/20 15:01:47 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/20 15:52:15 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,15 @@
 # define USAGE "Please provide the following arguments:\n1. Number of philosophers\n2. Time to die in milisec\n3. Time to eat in milisec\n4. Time to sleep in milisec\n(5. Number of times a philo must eat)\n"
 # define USLEEP_TIME 1000
 
+typedef long t_micsec;
+
 typedef struct s_params
 {
-	size_t	num_philos;
-	size_t	t2d;
-	size_t	t2e;
-	size_t	t2s;
-	size_t	eat_requ;
+	size_t		num_philos;
+	t_micsec	t2d;
+	t_micsec	t2e;
+	t_micsec	t2s;
+	size_t		eat_requ;
 } t_params;
 
 typedef struct	s_mtx_bool
@@ -57,9 +59,9 @@ typedef struct s_philo
 
 	size_t			idx;
 	pthread_t		tid;
-	long			last_eat_time;
+	t_micsec		last_eat_time;	// timestamp of last meal since start in micro sec
 	int				times_eaten;
-	long			start_time;
+	t_micsec		start_time;		// timestamp of start in micro sec
 	pthread_mutex_t *frst_fork;
 	pthread_mutex_t	*scnd_fork;
 	const t_params	*params;
@@ -69,15 +71,15 @@ void	*lifecycle(void *arg);
 bool	starved(t_philo *philo);
 
 // utils.c ------------------------------------------------------------------ //
-int		ft_isdigit(int c);
-int		ft_atoi(const char *nptr);
-size_t	ft_strlen(const char *str);
-long	get_mic_sec_since(long start_time);
-bool	has_syntax_err(char *argv[]);
-void	join_philos(t_philo **philos);
+int			ft_isdigit(int c);
+int			ft_atoi(const char *nptr);
+size_t		ft_strlen(const char *str);
+t_micsec	get_mic_sec_since(t_micsec start_time);
+bool		has_syntax_err(char *argv[]);
+void		join_philos(t_philo **philos);
 
 // output.c ----------------------------------------------------------------- //
-void	print_state_change(t_state state, t_philo *philo, long time_stamp);
+void	print_state_change(t_state state, t_philo *philo, t_micsec time_stamp);
 void	put_err(const char *msg);
 
 // free.c ------------------------------------------------------------------- //
