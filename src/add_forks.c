@@ -6,12 +6,13 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:38:41 by mmoser            #+#    #+#             */
-/*   Updated: 2024/08/12 11:34:21 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/19 11:39:20 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+// TODO: make clear for yourself why this assignation is important to prevent deadlocks
 static void	assign_forks(t_philo **philos, pthread_mutex_t *forks, size_t num_philos)
 {
 	size_t	i;

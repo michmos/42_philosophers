@@ -6,7 +6,7 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:20:18 by mmoser            #+#    #+#             */
-/*   Updated: 2024/08/12 16:20:13 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/20 11:06:23 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ static const char	*activity[] = {
 };
 
 
+// TODO: is last_state a form of communication between philosophers
+// in some way the philo knows what the previous philo did - so I guess yes
 void	print_state_change(t_state state, t_philo *philo, long time_stamp)
 {
 	static t_state			last_state;

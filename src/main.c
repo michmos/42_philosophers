@@ -6,7 +6,7 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 16:54:20 by mmoser            #+#    #+#             */
-/*   Updated: 2024/08/14 13:21:34 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/20 15:01:33 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ void	*lifecycle(void *arg)
 
 	me = (t_philo *) arg;
 	// start
-	while (! get_mtx_bool(&me->start))
+	while (! check_mtx_bool(&me->start))
 		;
 
 	// lifecycle
 	state = EATING;
-	while (! get_mtx_bool(&me->terminate))
+	while (! check_mtx_bool(&me->terminate) && me->times_eaten < me->params->eat_requ)
 	{
 		if (starved(me))
 		{
@@ -63,12 +63,12 @@ void	monitor_philos(t_philo **philos)
 		found_hungry_philo = false;
 		while (philos[i])
 		{
-			if (get_mtx_bool(&philos[i]->dead))
+			if (check_mtx_bool(&philos[i]->dead))
 			{
 				print_state_change(DIED, philos[i], get_mic_sec_since(philos[i]->start_time)/1000);
 				return;
 			}
-			else if (get_mtx_bool(&philos[i]->hungry))
+			else if (check_mtx_bool(&philos[i]->hungry))
 			{
 				found_hungry_philo = true;
 			}
@@ -84,17 +84,20 @@ int	main(int argc, char *argv[])
 {
 	t_philo			**philos;
 
-	if ((argc != 5 && argc != 6) || has_syntax_errs(argv))
+	if ((argc != 5 && argc != 6) || has_syntax_err(argv))
 	{
 		put_err(USAGE);
 		return (EXIT_FAILURE);
 	}
-	setup_simulation(argv, &philos);
+	if (setup_simulation(argv, &philos) == -1)
+	{
+		put_err("Error occurred during setup\n");
+		return (EXIT_FAILURE);
+	}
 	start_simulation(philos);
 	monitor_philos(philos);
 	end_simulation(philos);
 	join_philos(philos);
-	cleanup_forks(philos);
-	cleanup_philos(philos);
+	cleanup(philos);
 	return (0);
 }

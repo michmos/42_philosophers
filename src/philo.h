@@ -6,7 +6,7 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 16:52:32 by mmoser            #+#    #+#             */
-/*   Updated: 2024/08/14 12:42:47 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/20 15:01:47 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int		ft_isdigit(int c);
 int		ft_atoi(const char *nptr);
 size_t	ft_strlen(const char *str);
 long	get_mic_sec_since(long start_time);
-bool	has_syntax_errs(char *argv[]);
+bool	has_syntax_err(char *argv[]);
 void	join_philos(t_philo **philos);
 
 // output.c ----------------------------------------------------------------- //
@@ -86,6 +86,7 @@ int		destroy_n_mtxs(pthread_mutex_t *mtxs, size_t len);
 void	cleanup_philo(t_philo *philo);
 void	cleanup_philos(t_philo **philos);
 void	cleanup_forks(t_philo **philos);
+void	cleanup(t_philo **philos);
 
 // setup.c ------------------------------------------------------------------ //
 int	setup_simulation(char *argv[], t_philo ***philos);
@@ -107,7 +108,7 @@ void	start_simulation(t_philo **philos);
 void	end_simulation(t_philo **philos);
 
 // get_set.c ---------------------------------------------------------------- //
-bool	get_mtx_bool(t_mtx_bool	*mtx_bool);
+bool	check_mtx_bool(t_mtx_bool	*mtx_bool);
 void	set_mtx_bool(t_mtx_bool	*mtx_bool, bool new_val);
 
 #endif

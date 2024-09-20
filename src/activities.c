@@ -6,13 +6,14 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 11:58:29 by mmoser            #+#    #+#             */
-/*   Updated: 2024/08/14 12:56:01 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/20 11:25:12 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 
+// TODO: check again what I did wrong here before
 static int	wait_mic_sec(t_philo *philo, long	duration, long start_time)
 {
 	while (get_mic_sec_since(start_time) < duration)

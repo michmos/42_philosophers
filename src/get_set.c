@@ -6,13 +6,13 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 16:07:42 by mmoser            #+#    #+#             */
-/*   Updated: 2024/08/08 16:31:41 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/20 15:01:33 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-bool	get_mtx_bool(t_mtx_bool	*mtx_bool)
+bool	check_mtx_bool(t_mtx_bool	*mtx_bool)
 {
 	bool	result;
 

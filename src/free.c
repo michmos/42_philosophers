@@ -6,13 +6,14 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 16:30:04 by mmoser            #+#    #+#             */
-/*   Updated: 2024/08/12 10:56:18 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/20 11:21:07 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <pthread.h>
 
+// TODO: add hungry lock?
 void	cleanup_philo(t_philo *philo)
 {
 	if (!philo)
@@ -58,6 +59,7 @@ int	destroy_n_mtxs(pthread_mutex_t *mtxs, size_t len)
 		s = pthread_mutex_destroy(&mtxs[i]);
 		if (s != 0)
 		{
+			put_err("mutex destroy failed\n");
 			return (-1);
 		}
 		i++;
@@ -72,4 +74,11 @@ void	cleanup_forks(t_philo **philos)
 	forks = (*philos)->frst_fork;
 	destroy_n_mtxs(forks, (*philos)->params->num_philos);
 	free(forks);
+}
+
+void	cleanup(t_philo **philos)
+{
+	cleanup_forks(philos);
+	free((void *) (*philos)->params);
+	cleanup_philos(philos);
 }

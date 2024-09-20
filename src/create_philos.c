@@ -6,12 +6,13 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:35:40 by mmoser            #+#    #+#             */
-/*   Updated: 2024/08/14 12:52:58 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/19 11:35:03 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+// TODO: is it correct that we are not initiating the hungry lock?
 static int	init_locks(t_philo *philo)
 {
 	int	s;

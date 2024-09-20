@@ -6,7 +6,7 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:30:46 by mmoser            #+#    #+#             */
-/*   Updated: 2024/08/12 17:34:15 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/19 11:31:13 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_isdigit(int c)
 	return (c >= '0' && c <= '9');
 }
 
-bool	has_syntax_errs(char *argv[])
+bool	has_syntax_err(char *argv[])
 {
 	size_t	i;
 	size_t	j;
