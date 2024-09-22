@@ -6,7 +6,7 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:30:46 by mmoser            #+#    #+#             */
-/*   Updated: 2024/09/20 15:51:41 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/22 19:24:58 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,12 @@ bool	has_syntax_err(char *argv[])
 void	join_philos(t_philo **philos)
 {
 	size_t	i;
+	int		s;
 
 	while (philos[i])
 	{
-		pthread_join(philos[i]->tid, NULL);
+		s = pthread_join(philos[i]->tid, NULL);
+		put_err("thread could not be joined\n");
 		i++;
 	}
 }

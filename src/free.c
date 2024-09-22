@@ -6,7 +6,7 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 16:30:04 by mmoser            #+#    #+#             */
-/*   Updated: 2024/09/20 11:21:07 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/22 19:26:35 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ void	sfree(void **ptr)
 	*ptr = NULL;
 }
 
-int	destroy_n_mtxs(pthread_mutex_t *mtxs, size_t len)
+int	destroy_n_mtxs(pthread_mutex_t *mtxs, size_t n)
 {
 	size_t	i;
 	size_t	s;
 
 	i = 0;
-	while (i < len)
+	while (i < n)
 	{
 		s = pthread_mutex_destroy(&mtxs[i]);
 		if (s != 0)
@@ -76,6 +76,7 @@ void	cleanup_forks(t_philo **philos)
 	free(forks);
 }
 
+// TODO: double check with .h whether everything is being cleaned up
 void	cleanup(t_philo **philos)
 {
 	cleanup_forks(philos);

@@ -6,7 +6,7 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 16:52:32 by mmoser            #+#    #+#             */
-/*   Updated: 2024/09/20 15:52:15 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/22 19:16:15 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct s_philo
 	t_mtx_bool		dead;
 	t_mtx_bool		start;
 	t_mtx_bool		terminate;
-	t_mtx_bool		hungry;
+	t_mtx_bool		hungry; // TODO: should be renamed - they can still get hungry after they've eaten enough times
 
 	size_t			idx;
 	pthread_t		tid;
@@ -84,7 +84,7 @@ void	put_err(const char *msg);
 
 // free.c ------------------------------------------------------------------- //
 void	sfree(void **ptr);
-int		destroy_n_mtxs(pthread_mutex_t *mtxs, size_t len);
+int		destroy_n_mtxs(pthread_mutex_t *mtxs, size_t n);
 void	cleanup_philo(t_philo *philo);
 void	cleanup_philos(t_philo **philos);
 void	cleanup_forks(t_philo **philos);

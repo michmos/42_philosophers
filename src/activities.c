@@ -6,7 +6,7 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 11:58:29 by mmoser            #+#    #+#             */
-/*   Updated: 2024/09/20 15:51:26 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/22 20:00:26 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 // TODO: check again what I did wrong here before
 static int	wait_mic_sec(t_philo *philo, t_micsec	duration)
 {
-	t_micsec	start_time;
+	t_micsec	sleep_start;
 
-	start_time = get_mic_sec_since(0);
-	while (get_mic_sec_since(start_time) < duration)
+	sleep_start = get_mic_sec_since(0);
+	while (get_mic_sec_since(sleep_start) < duration)
 	{
 		usleep( USLEEP_TIME);
 		if (starved(philo))
@@ -28,6 +28,23 @@ static int	wait_mic_sec(t_philo *philo, t_micsec	duration)
 	}
 	return (0);
 }
+
+// static int	wait_mic_sec(t_philo *philo, t_micsec	duration)
+// {
+// 	t_micsec	acc_time;
+//
+// 	acc_time = 0;
+// 	while (acc_time < duration)
+// 	{
+// 		usleep( USLEEP_TIME);
+// 		acc_time += USLEEP_TIME;
+// 		if (starved(philo))
+// 		{
+// 			return (-1);
+// 		}
+// 	}
+// 	return (0);
+// }
 
 int	eat(t_philo *philo)
 {

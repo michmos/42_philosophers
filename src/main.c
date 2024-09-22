@@ -6,7 +6,7 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 16:54:20 by mmoser            #+#    #+#             */
-/*   Updated: 2024/09/20 16:02:54 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/22 19:33:11 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,12 @@ void	*lifecycle(void *arg)
 	return (NULL);
 }
 
+// TODO: also change hungry wording here
 void	monitor_philos(t_philo **philos)
 {
 	size_t	i;
 	bool	found_hungry_philo;
 	
-	i = 0;
 	// find dead philo or all philos full
 	while (true)
 	{
@@ -65,7 +65,7 @@ void	monitor_philos(t_philo **philos)
 		{
 			if (check_mtx_bool(&philos[i]->dead))
 			{
-				print_state_change(DIED, philos[i], get_mic_sec_since(philos[i]->start_time)/1000);
+				print_state_change(DIED, philos[i], get_mic_sec_since(philos[i]->start_time));
 				return;
 			}
 			else if (check_mtx_bool(&philos[i]->hungry))
