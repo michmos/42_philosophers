@@ -6,13 +6,12 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 11:58:29 by mmoser            #+#    #+#             */
-/*   Updated: 2024/09/22 20:00:26 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/23 18:10:08 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-// TODO: check again what I did wrong here before
 static int	wait_mic_sec(t_philo *philo, t_micsec	duration)
 {
 	t_micsec	sleep_start;
@@ -28,23 +27,6 @@ static int	wait_mic_sec(t_philo *philo, t_micsec	duration)
 	}
 	return (0);
 }
-
-// static int	wait_mic_sec(t_philo *philo, t_micsec	duration)
-// {
-// 	t_micsec	acc_time;
-//
-// 	acc_time = 0;
-// 	while (acc_time < duration)
-// 	{
-// 		usleep( USLEEP_TIME);
-// 		acc_time += USLEEP_TIME;
-// 		if (starved(philo))
-// 		{
-// 			return (-1);
-// 		}
-// 	}
-// 	return (0);
-// }
 
 int	eat(t_philo *philo)
 {
@@ -98,9 +80,4 @@ int	think(t_philo *philo)
 {
 	print_state_change(THINKING, philo, get_mic_sec_since(philo->start_time));
 	return (0);
-}
-
-void	die(t_philo *philo)
-{
-	print_state_change(DIED, philo, get_mic_sec_since(philo->start_time));
 }

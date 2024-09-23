@@ -5,7 +5,7 @@ SRC_DIR	:= src/
 SRCS	:= activities.c add_forks.c create_philos.c free.c \
 		   get_set.c main.c output.c setup.c start_end.c utils.c
 
-OBJ_DIR	:= .build
+OBJ_DIR	:= .build/
 OBJS	:= $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 CC		:= cc

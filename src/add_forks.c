@@ -6,7 +6,7 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:38:41 by mmoser            #+#    #+#             */
-/*   Updated: 2024/09/22 19:15:42 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/23 16:45:09 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 static void	assign_forks(t_philo **philos, pthread_mutex_t *forks, size_t num_philos)
 {
 	size_t	i;
-	int		s;
 
 	i = 0;
 	while (i < num_philos)
@@ -65,7 +64,6 @@ static int	init_forks(pthread_mutex_t *forks, size_t num)
 int	add_forks(t_philo **philos, size_t num_philos)
 {
 	pthread_mutex_t	*forks;
-	int				s;
 
 	forks = malloc(num_philos * sizeof(pthread_mutex_t));
 	if (!forks)

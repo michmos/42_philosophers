@@ -6,7 +6,7 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:35:40 by mmoser            #+#    #+#             */
-/*   Updated: 2024/09/19 11:35:03 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/23 16:45:57 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ static int	init_locks(t_philo *philo)
 static t_philo	*create_philo(t_params *params, size_t idx)
 {
 	t_philo	*philo;
-	int		s;
 
 	philo = malloc(sizeof(t_philo));
 	if (!philo)
@@ -66,10 +65,6 @@ t_philo	**create_philos(t_params *params)
 {
 	size_t			i;
 	t_philo			**philos;
-	pthread_mutex_t	*lst_fork;
-	t_mtx_bool		*start;
-	t_mtx_bool		*terminate;
-	int				s;
 
 	philos = malloc(sizeof(t_philo *) * (params->num_philos + 1));
 	if (!philos)

@@ -6,7 +6,7 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 16:52:32 by mmoser            #+#    #+#             */
-/*   Updated: 2024/09/22 19:16:15 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/23 17:16:40 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct s_philo
 	size_t			idx;
 	pthread_t		tid;
 	t_micsec		last_eat_time;	// timestamp of last meal since start in micro sec
-	int				times_eaten;
+	size_t			times_eaten;
 	t_micsec		start_time;		// timestamp of start in micro sec
 	pthread_mutex_t *frst_fork;
 	pthread_mutex_t	*scnd_fork;
