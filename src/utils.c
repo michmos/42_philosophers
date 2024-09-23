@@ -6,7 +6,7 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:30:46 by mmoser            #+#    #+#             */
-/*   Updated: 2024/09/22 19:24:58 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/23 16:34:03 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,14 @@ void	join_philos(t_philo **philos)
 	size_t	i;
 	int		s;
 
+	i = 0;
 	while (philos[i])
 	{
 		s = pthread_join(philos[i]->tid, NULL);
-		put_err("thread could not be joined\n");
+		if (s != 0)
+		{
+			put_err("thread could not be joined\n");
+		}
 		i++;
 	}
 }
