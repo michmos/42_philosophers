@@ -28,10 +28,13 @@ void	*lifecycle(void *arg)
 	t_state	state;
 
 	me = (t_philo *) arg;
-	// start
-	while (! check_mtx_bool(&me->start))
-		;
 
+	while (! check_mtx_bool(&me->start))
+		usleep(100);
+
+	// divide into groups
+	if (me->idx % 2 == 1)
+		wait_mic_sec(me, me->params->t2e / 2);
 	// lifecycle
 	state = EATING;
 	while (! check_mtx_bool(&me->terminate))
