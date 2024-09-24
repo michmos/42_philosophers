@@ -6,7 +6,7 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 16:52:32 by mmoser            #+#    #+#             */
-/*   Updated: 2024/09/24 10:53:16 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/24 12:32:04 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ typedef enum e_state
 
 typedef struct s_philo
 {
-	t_mtx_bool		dead;
 	t_mtx_bool		start;
 	t_mtx_bool		terminate;
+	t_mtx_bool		dead;
 	t_mtx_bool		hungry; // TODO: should be renamed - they can still get hungry after they've eaten enough times
 
 	size_t			idx;
@@ -77,6 +77,7 @@ size_t		ft_strlen(const char *str);
 t_micsec	get_mic_sec_since(t_micsec start_time);
 bool		has_syntax_err(char *argv[]);
 void		join_philos(t_philo **philos);
+int			wait_mic_sec(t_philo *philo, t_micsec	duration);
 
 // output.c ----------------------------------------------------------------- //
 void	print_state_change(t_state state, t_philo *philo, t_micsec time_stamp);

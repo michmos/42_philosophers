@@ -6,16 +6,11 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 16:54:20 by mmoser            #+#    #+#             */
-/*   Updated: 2024/09/22 19:33:11 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/24 11:56:05 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-bool	starved(t_philo *philo)
-{
-	return (get_mic_sec_since(philo->start_time) - philo->last_eat_time >= philo->params->t2d);
-}
 
 void	*lifecycle(void *arg)
 {
@@ -35,6 +30,7 @@ void	*lifecycle(void *arg)
 	// divide into groups
 	if (me->idx % 2 == 1)
 		wait_mic_sec(me, me->params->t2e / 2);
+
 	// lifecycle
 	state = EATING;
 	while (! check_mtx_bool(&me->terminate))

@@ -9,8 +9,8 @@ OBJ_DIR	:= .build/
 OBJS	:= $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 CC		:= cc
-CFLAGS	:= -g -Wall -Wextra -Werror -Wunused -Wuninitialized -Wunreachable-code
-LDFLAGS	:= -fsanitize=thread
+CFLAGS	:= -g -Wall -Wextra -Werror -Wunused -Wuninitialized -Wunreachable-code -flto -ofast
+LDFLAGS	:= -fsanitize=thread -flto
 RM		:= rm -rf
 
 all: $(NAME)

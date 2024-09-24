@@ -6,15 +6,16 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 11:58:29 by mmoser            #+#    #+#             */
-/*   Updated: 2024/09/23 18:10:08 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/24 12:28:21 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int	wait_mic_sec(t_philo *philo, t_micsec	duration)
+bool	starved(t_philo *philo)
 {
-	t_micsec	sleep_start;
+	return (get_mic_sec_since(philo->start_time) - philo->last_eat_time >= philo->params->t2d);
+}
 
 static void	grab_forks(t_philo *philo)
 {

@@ -6,7 +6,7 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:30:46 by mmoser            #+#    #+#             */
-/*   Updated: 2024/09/23 16:34:03 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/24 11:54:07 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,21 @@ t_micsec	get_mic_sec_since(t_micsec start_time)
 		return (-1);
 	time_in_micro = timeval.tv_usec + 1000000 * timeval.tv_sec - start_time;
 	return (time_in_micro);
+}
+
+int	wait_mic_sec(t_philo *philo, t_micsec	duration)
+{
+	t_micsec	sleep_start;
+
+	sleep_start = get_mic_sec_since(0);
+	while (get_mic_sec_since(sleep_start) < duration)
+	{
+		usleep( USLEEP_TIME);
+		if (starved(philo))
+		{
+			return (-1);
+		}
+	}
+	return (0);
 }
 
