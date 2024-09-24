@@ -6,14 +6,14 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 16:52:32 by mmoser            #+#    #+#             */
-/*   Updated: 2024/09/23 17:16:40 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/24 10:53:16 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
-#include <stddef.h>
+# include <stddef.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <stdbool.h>
@@ -22,7 +22,7 @@
 # include <pthread.h>
 
 # define USAGE "Please provide the following arguments:\n1. Number of philosophers\n2. Time to die in milisec\n3. Time to eat in milisec\n4. Time to sleep in milisec\n(5. Number of times a philo must eat)\n"
-# define USLEEP_TIME 1000
+# define USLEEP_TIME 500
 
 typedef long t_micsec;
 
@@ -62,8 +62,8 @@ typedef struct s_philo
 	t_micsec		last_eat_time;	// timestamp of last meal since start in micro sec
 	size_t			times_eaten;
 	t_micsec		start_time;		// timestamp of start in micro sec
-	pthread_mutex_t *frst_fork;
-	pthread_mutex_t	*scnd_fork;
+	pthread_mutex_t *left_fork;
+	pthread_mutex_t	*right_fork;
 	const t_params	*params;
 } t_philo;
 

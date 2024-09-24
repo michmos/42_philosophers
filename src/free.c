@@ -6,7 +6,7 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 16:30:04 by mmoser            #+#    #+#             */
-/*   Updated: 2024/09/22 19:26:35 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/24 11:37:15 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	cleanup_forks(t_philo **philos)
 {
 	pthread_mutex_t	*forks;
 
-	forks = (*philos)->frst_fork;
+	forks = (*philos)->left_fork;
 	destroy_n_mtxs(forks, (*philos)->params->num_philos);
 	free(forks);
 }

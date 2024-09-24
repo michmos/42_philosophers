@@ -16,36 +16,38 @@ static int	wait_mic_sec(t_philo *philo, t_micsec	duration)
 {
 	t_micsec	sleep_start;
 
-	sleep_start = get_mic_sec_since(0);
-	while (get_mic_sec_since(sleep_start) < duration)
+static void	grab_forks(t_philo *philo)
+{
+	if (philo->idx % 2 == 1)
 	{
-		usleep( USLEEP_TIME);
-		if (starved(philo))
-		{
-			return (-1);
-		}
+		pthread_mutex_lock(philo->left_fork);
+		print_state_change(FORK, philo, get_mic_sec_since(philo->start_time));
+		pthread_mutex_lock(philo->right_fork);
+		print_state_change(FORK, philo, get_mic_sec_since(philo->start_time));
 	}
-	return (0);
+	else
+	{
+		pthread_mutex_lock(philo->right_fork);
+		print_state_change(FORK, philo, get_mic_sec_since(philo->start_time));
+		pthread_mutex_lock(philo->left_fork);
+		print_state_change(FORK, philo, get_mic_sec_since(philo->start_time));
+	}
 }
 
 int	eat(t_philo *philo)
 {
-	// grab forks
-	pthread_mutex_lock(philo->frst_fork);
-	print_state_change(FORK, philo, get_mic_sec_since(philo->start_time));
-	if (!philo->scnd_fork)
+	t_micsec	eat_time;
+
+	if (philo->params->num_philos == 1)
 	{
-		pthread_mutex_unlock(philo->frst_fork);
 		wait_mic_sec(philo, philo->params->t2d);
 		set_mtx_bool(&philo->dead, true);
 		return (-1);
 	}
-	pthread_mutex_lock(philo->scnd_fork);
-	print_state_change(FORK, philo, get_mic_sec_since(philo->start_time));
-
-	// eat
-	print_state_change(EATING, philo, get_mic_sec_since(philo->start_time));
-	philo->last_eat_time = get_mic_sec_since(philo->start_time);
+	grab_forks(philo);
+	eat_time = get_mic_sec_since(philo->start_time);
+	print_state_change(EATING, philo, eat_time);
+	philo->last_eat_time = eat_time;
 	philo->times_eaten += 1;
 	if (philo->times_eaten == philo->params->eat_requ)
 	{
@@ -54,14 +56,13 @@ int	eat(t_philo *philo)
 	if (wait_mic_sec(philo, philo->params->t2e) == -1)
 	{
 		set_mtx_bool(&philo->dead, true);
-		pthread_mutex_unlock(philo->scnd_fork);
-		pthread_mutex_unlock(philo->frst_fork);
+		pthread_mutex_unlock(philo->right_fork);
+		pthread_mutex_unlock(philo->left_fork);
 		return (-1);
 	}
-
 	// put down forks
-	pthread_mutex_unlock(philo->scnd_fork);
-	pthread_mutex_unlock(philo->frst_fork);
+	pthread_mutex_unlock(philo->right_fork);
+	pthread_mutex_unlock(philo->left_fork);
 	return (0);
 }
 

@@ -6,13 +6,12 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:38:41 by mmoser            #+#    #+#             */
-/*   Updated: 2024/09/23 16:45:09 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/24 11:42:28 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-// TODO: make clear for yourself why this assignation is important to prevent deadlocks
 static void	assign_forks(t_philo **philos, pthread_mutex_t *forks, size_t num_philos)
 {
 	size_t	i;
@@ -20,23 +19,14 @@ static void	assign_forks(t_philo **philos, pthread_mutex_t *forks, size_t num_ph
 	i = 0;
 	while (i < num_philos)
 	{
-		if (i % 2 == 0)
+		philos[i]->left_fork = &forks[i];
+		if (i == num_philos - 1)
 		{
-			philos[i]->frst_fork = &forks[i];
-			if (num_philos == 1)
-				philos[0]->scnd_fork = NULL;
-			else if (i == num_philos - 1)
-				philos[i]->scnd_fork = &forks[0];
-			else
-				philos[i]->scnd_fork = &forks[i + 1];
+			philos[i]->right_fork = &forks[0];
 		}
 		else
 		{
-			philos[i]->scnd_fork = &forks[i];
-			if (i == num_philos - 1)
-				philos[i]->frst_fork = &forks[0];
-			else
-				philos[i]->frst_fork = &forks[i + 1];
+			philos[i]->right_fork = &forks[i + 1];
 		}
 		i++;
 	}
