@@ -1,16 +1,17 @@
 
 NAME	:= philo
 
-SRC_DIR	:= src/
+SRC_DIR	:= src
 SRCS	:= activities.c add_forks.c create_philos.c free.c \
 		   get_set.c main.c output.c setup.c start_end.c utils.c
+SRCS	:= $(SRCS:%=$(SRC_DIR)/%)
 
-OBJ_DIR	:= .build/
+OBJ_DIR	:= .build
 OBJS	:= $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 CC		:= cc
-CFLAGS	:= -g -Wall -Wextra -Werror -Wunused -Wuninitialized -Wunreachable-code -flto -ofast
-LDFLAGS	:= -fsanitize=thread -flto
+CFLAGS	:= -g -Wall -Wextra -Werror -Wunused -Wuninitialized -Wunreachable-code -flto -ofast -pthread
+LDFLAGS	:= -fsanitize=thread -flto -pthread
 RM		:= rm -rf
 
 all: $(NAME)
@@ -20,7 +21,7 @@ $(NAME): $(OBJS)
 	@printf "$(CREATED)" $@ $(CUR_DIR)
 
 $(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c
-	@mkdir -p $(D@)
+	@mkdir -p $(@D)
 	$(CC) $(CLFAGS) -c $< -o $@
 
 clean:
@@ -35,6 +36,9 @@ fclean:
 re:
 	$(MAKE) fclean
 	$(MAKE) all
+
+print-%:
+	$(info $($*))
 
 .PHONY: all clean flcean re
 
