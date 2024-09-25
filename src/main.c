@@ -6,7 +6,7 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 16:54:20 by mmoser            #+#    #+#             */
-/*   Updated: 2024/09/24 11:56:05 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/25 12:45:24 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	*lifecycle(void *arg)
 	{
 		if (starved(me))
 		{
-			set_mtx_bool(&me->dead, true);
 			break;
 		}
 		if (activities[state](me) == -1)
@@ -52,8 +51,8 @@ void	*lifecycle(void *arg)
 // TODO: also change hungry wording here
 void	monitor_philos(t_philo **philos)
 {
-	size_t	i;
-	bool	found_hungry_philo;
+	size_t		i;
+	bool		found_hungry_philo;
 	
 	// find dead philo or all philos full
 	while (true)
@@ -62,7 +61,7 @@ void	monitor_philos(t_philo **philos)
 		found_hungry_philo = false;
 		while (philos[i])
 		{
-			if (check_mtx_bool(&philos[i]->dead))
+			if (starved(philos[i]))
 			{
 				print_state_change(DIED, philos[i], get_mic_sec_since(philos[i]->start_time));
 				return;

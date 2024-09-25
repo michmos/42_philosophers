@@ -6,7 +6,7 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 16:30:04 by mmoser            #+#    #+#             */
-/*   Updated: 2024/09/24 11:37:15 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/25 12:43:32 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	cleanup_philo(t_philo *philo)
 		return;
 	}
 	pthread_mutex_destroy(&philo->start.lock);
-	pthread_mutex_destroy(&philo->dead.lock);
 	pthread_mutex_destroy(&philo->terminate.lock);
 	free(philo);
 }

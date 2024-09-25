@@ -6,7 +6,7 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:35:40 by mmoser            #+#    #+#             */
-/*   Updated: 2024/09/23 16:45:57 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/25 12:43:27 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,15 @@ static int	init_locks(t_philo *philo)
 {
 	int	s;
 
-	s = pthread_mutex_init(&philo->dead.lock, NULL);
-	if (s != 0)
-	{
-		return (-1);
-	}
 	s = pthread_mutex_init(&philo->start.lock, NULL);
 	if (s != 0)
 	{
-		pthread_mutex_destroy(&philo->dead.lock);
 		return (-1);
 	}
 	s = pthread_mutex_init(&philo->terminate.lock, NULL);
 	if (s != 0)
 	{
 		pthread_mutex_destroy(&philo->start.lock);
-		pthread_mutex_destroy(&philo->dead.lock);
 		return (-1);
 	}
 	return (0);
@@ -47,7 +40,7 @@ static t_philo	*create_philo(t_params *params, size_t idx)
 	{
 		return (NULL);
 	}
-	*philo = (t_philo) {.idx=idx, .params=params, .dead.val=false, .start.val=false, .terminate.val=false, .hungry.val = true};
+	*philo = (t_philo) {.idx=idx, .params=params, .start.val=false, .terminate.val=false, .hungry.val = true};
 	if (init_locks(philo) == -1)
 	{
 		free(philo);

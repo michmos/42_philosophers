@@ -6,7 +6,7 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 16:52:32 by mmoser            #+#    #+#             */
-/*   Updated: 2024/09/24 12:32:04 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/25 12:46:16 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,12 @@ typedef struct	s_mtx_bool
 	bool			val;
 } t_mtx_bool;
 
+typedef struct	s_mtx_time
+{
+	pthread_mutex_t	lock;
+	t_micsec		val;
+} t_mtx_time;
+
 typedef enum e_state
 {
 	EATING,
@@ -54,12 +60,11 @@ typedef struct s_philo
 {
 	t_mtx_bool		start;
 	t_mtx_bool		terminate;
-	t_mtx_bool		dead;
 	t_mtx_bool		hungry; // TODO: should be renamed - they can still get hungry after they've eaten enough times
 
 	size_t			idx;
 	pthread_t		tid;
-	t_micsec		last_eat_time;	// timestamp of last meal since start in micro sec
+	t_mtx_time		last_eat_time;	// timestamp of last meal since start in micro sec
 	size_t			times_eaten;
 	t_micsec		start_time;		// timestamp of start in micro sec
 	pthread_mutex_t *left_fork;
@@ -67,8 +72,8 @@ typedef struct s_philo
 	const t_params	*params;
 } t_philo;
 
-void	*lifecycle(void *arg);
-bool	starved(t_philo *philo);
+void		*lifecycle(void *arg);
+bool		starved(t_philo *philo);
 
 // utils.c ------------------------------------------------------------------ //
 int			ft_isdigit(int c);
@@ -111,7 +116,9 @@ void	start_simulation(t_philo **philos);
 void	end_simulation(t_philo **philos);
 
 // get_set.c ---------------------------------------------------------------- //
-bool	check_mtx_bool(t_mtx_bool	*mtx_bool);
-void	set_mtx_bool(t_mtx_bool	*mtx_bool, bool new_val);
+bool		check_mtx_bool(t_mtx_bool	*mtx_bool);
+void		set_mtx_bool(t_mtx_bool	*mtx_bool, bool new_val);
+t_micsec	get_mtx_time(t_mtx_time *mtx_time);
+void		set_mtx_time(t_mtx_time *mtx_time, t_micsec new_time);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 11:58:29 by mmoser            #+#    #+#             */
-/*   Updated: 2024/09/24 12:28:21 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/25 12:44:24 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	starved(t_philo *philo)
 {
-	return (get_mic_sec_since(philo->start_time) - philo->last_eat_time >= philo->params->t2d);
+	return (get_mic_sec_since(philo->start_time) - get_mtx_time(&philo->last_eat_time) >= philo->params->t2d);
 }
 
 static void	grab_forks(t_philo *philo)
@@ -42,13 +42,12 @@ int	eat(t_philo *philo)
 	if (philo->params->num_philos == 1)
 	{
 		wait_mic_sec(philo, philo->params->t2d);
-		set_mtx_bool(&philo->dead, true);
 		return (-1);
 	}
 	grab_forks(philo);
 	eat_time = get_mic_sec_since(philo->start_time);
 	print_state_change(EATING, philo, eat_time);
-	philo->last_eat_time = eat_time;
+	set_mtx_time(&philo->last_eat_time, eat_time);
 	philo->times_eaten += 1;
 	if (philo->times_eaten == philo->params->eat_requ)
 	{
@@ -56,7 +55,6 @@ int	eat(t_philo *philo)
 	}
 	if (wait_mic_sec(philo, philo->params->t2e) == -1)
 	{
-		set_mtx_bool(&philo->dead, true);
 		pthread_mutex_unlock(philo->right_fork);
 		pthread_mutex_unlock(philo->left_fork);
 		return (-1);
@@ -72,7 +70,6 @@ int	my_sleep(t_philo *philo)
 	print_state_change(SLEEPING, philo, get_mic_sec_since(philo->start_time));
 	if (wait_mic_sec(philo, philo->params->t2s) == -1)
 	{
-		set_mtx_bool(&philo->dead, true);
 		return (-1);
 	}
 	return (0);
