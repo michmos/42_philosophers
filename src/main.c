@@ -6,7 +6,7 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 16:54:20 by mmoser            #+#    #+#             */
-/*   Updated: 2024/09/25 12:45:24 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/26 15:50:31 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	*lifecycle(void *arg)
 	state = EATING;
 	while (! check_mtx_bool(&me->terminate))
 	{
-		if (starved(me))
+		if (starved(me, get_mtx_time(&me->last_eat_time)))
 		{
 			break;
 		}
@@ -51,8 +51,8 @@ void	*lifecycle(void *arg)
 // TODO: also change hungry wording here
 void	monitor_philos(t_philo **philos)
 {
-	size_t		i;
-	bool		found_hungry_philo;
+	size_t	i;
+	bool	found_hungry_philo;
 	
 	// find dead philo or all philos full
 	while (true)
@@ -61,7 +61,7 @@ void	monitor_philos(t_philo **philos)
 		found_hungry_philo = false;
 		while (philos[i])
 		{
-			if (starved(philos[i]))
+			if (starved(philos[i], get_mtx_time(&philos[i]->last_eat_time)))
 			{
 				print_state_change(DIED, philos[i], get_mic_sec_since(philos[i]->start_time));
 				return;
@@ -80,7 +80,7 @@ void	monitor_philos(t_philo **philos)
 
 int	main(int argc, char *argv[])
 {
-	t_philo			**philos;
+	t_philo	**philos;
 
 	if ((argc != 5 && argc != 6) || has_syntax_err(argv))
 	{

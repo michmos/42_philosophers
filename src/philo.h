@@ -6,7 +6,7 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 16:52:32 by mmoser            #+#    #+#             */
-/*   Updated: 2024/09/25 12:46:16 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/26 15:49:00 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ typedef struct s_philo
 } t_philo;
 
 void		*lifecycle(void *arg);
-bool		starved(t_philo *philo);
+bool		starved(t_philo *philo, t_micsec last_eat_time);
 
 // utils.c ------------------------------------------------------------------ //
 int			ft_isdigit(int c);

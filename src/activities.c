@@ -6,15 +6,15 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 11:58:29 by mmoser            #+#    #+#             */
-/*   Updated: 2024/09/25 12:44:24 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/26 15:56:54 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-bool	starved(t_philo *philo)
+bool	starved(t_philo *philo, t_micsec last_eat_time)
 {
-	return (get_mic_sec_since(philo->start_time) - get_mtx_time(&philo->last_eat_time) >= philo->params->t2d);
+	return (get_mic_sec_since(philo->start_time) - last_eat_time >= philo->params->t2d);
 }
 
 static void	grab_forks(t_philo *philo)
