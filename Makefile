@@ -10,8 +10,17 @@ OBJ_DIR	:= .build
 OBJS	:= $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 CC		:= cc
-CFLAGS	:= -g -Wall -Wextra -Werror -Wunused -Wuninitialized -Wunreachable-code -flto -ofast -pthread
-LDFLAGS	:= -fsanitize=thread -flto -pthread
+TCHECK	?= 0
+MCHECK	?= 0
+CFLAGS	:= -g -Wall -Wextra -Werror -Wunused -Wuninitialized -Wunreachable-code -ofast -pthread
+LDFLAGS	:= -pthread
+ifeq ($(TCHECK), 1)
+CFLAGS	+= -fsanitize=thread
+LDFLAGS	+= -fsanitize=thread
+else ifeq  ($(MCHECK), 1)
+CFLAGS	+= -fsanitize=address
+LDFLAGS	+= -fsanitize=address
+endif
 RM		:= rm -rf
 
 all: $(NAME)
