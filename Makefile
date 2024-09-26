@@ -3,7 +3,7 @@ NAME	:= philo
 
 SRC_DIR	:= src
 SRCS	:= activities.c add_forks.c create_philos.c free.c \
-		   get_set.c main.c output.c setup.c start_end.c utils.c
+		   get_set.c main.c output.c setup.c start.c utils.c monitoring.c lifecycle.c
 SRCS	:= $(SRCS:%=$(SRC_DIR)/%)
 
 OBJ_DIR	:= .build
@@ -22,7 +22,7 @@ $(NAME): $(OBJS)
 
 $(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c
 	@mkdir -p $(@D)
-	$(CC) $(CLFAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	$(RM) $(OBJ_DIR)

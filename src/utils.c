@@ -6,7 +6,7 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:30:46 by mmoser            #+#    #+#             */
-/*   Updated: 2024/09/26 15:49:08 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/26 16:06:27 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,20 +106,14 @@ t_micsec	get_mic_sec_since(t_micsec start_time)
 	return (time_in_micro);
 }
 
-int	wait_mic_sec(t_philo *philo, t_micsec	duration)
+int	wait_mic_sec(t_micsec	duration)
 {
 	t_micsec	sleep_start;
-	t_micsec	last_eat_time;
 
 	sleep_start = get_mic_sec_since(0);
-	last_eat_time = get_mtx_time(&philo->last_eat_time);
 	while (get_mic_sec_since(sleep_start) < duration)
 	{
 		usleep( USLEEP_TIME);
-		if (starved(philo, last_eat_time))
-		{
-			return (-1);
-		}
 	}
 	return (0);
 }

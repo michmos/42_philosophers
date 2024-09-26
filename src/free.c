@@ -6,14 +6,13 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 16:30:04 by mmoser            #+#    #+#             */
-/*   Updated: 2024/09/25 12:43:32 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/26 22:02:21 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <pthread.h>
 
-// TODO: add hungry lock?
 void	cleanup_philo(t_philo *philo)
 {
 	if (!philo)
@@ -21,7 +20,8 @@ void	cleanup_philo(t_philo *philo)
 		return;
 	}
 	pthread_mutex_destroy(&philo->start.lock);
-	pthread_mutex_destroy(&philo->terminate.lock);
+	pthread_mutex_destroy(&philo->hungry.lock);
+	pthread_mutex_destroy(&philo->eat_lock);
 	free(philo);
 }
 

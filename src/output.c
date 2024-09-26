@@ -6,7 +6,7 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:20:18 by mmoser            #+#    #+#             */
-/*   Updated: 2024/09/23 18:06:26 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/26 22:21:37 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,25 @@ static const char	*activity[] = {
 	[DIED] = "died"
 };
 
-// TODO: check whether new version is still working
-// theoeretically it is possible that somebody printed that they died but that the monitoring 
-// thread was not yet able to set all threads to terminate - so that another tread could still
-// print messages
-// alternative would be to have a static lock bool
-void	print_state_change(t_state state, t_philo *philo, t_micsec time_stamp)
+int	print_state_change(t_state state, t_philo *philo, t_micsec time_stamp)
 {
 	static pthread_mutex_t	lock = PTHREAD_MUTEX_INITIALIZER;
+	static bool	print = true;
 
 	pthread_mutex_lock(&lock);
-	if (check_mtx_bool(&philo->terminate))
+	if (print == false || (int) state == -1)
 	{
+		print = false;
 		pthread_mutex_unlock(&lock);
-		return ;
+		return (-1);
+	}
+	else if (state == DIED)
+	{
+		print = false;
 	}
 	printf("%li %zu %s\n", time_stamp/1000, philo->idx, activity[state]);
 	pthread_mutex_unlock(&lock);
+	return (0);
 }
 
 void	put_err(const char *msg)

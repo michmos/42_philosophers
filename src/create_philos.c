@@ -6,13 +6,12 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:35:40 by mmoser            #+#    #+#             */
-/*   Updated: 2024/09/25 12:43:27 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/26 22:15:57 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-// TODO: is it correct that we are not initiating the hungry lock?
 static int	init_locks(t_philo *philo)
 {
 	int	s;
@@ -20,12 +19,22 @@ static int	init_locks(t_philo *philo)
 	s = pthread_mutex_init(&philo->start.lock, NULL);
 	if (s != 0)
 	{
+		put_err("mutex init failed\n");
 		return (-1);
 	}
-	s = pthread_mutex_init(&philo->terminate.lock, NULL);
+	s = pthread_mutex_init(&philo->hungry.lock, NULL);
 	if (s != 0)
 	{
+		put_err("mutex init failed\n");
 		pthread_mutex_destroy(&philo->start.lock);
+		return (-1);
+	}
+	s = pthread_mutex_init(&philo->eat_lock, NULL);
+	if (s != 0)
+	{
+		put_err("mutex init failed\n");
+		pthread_mutex_destroy(&philo->start.lock);
+		pthread_mutex_destroy(&philo->hungry.lock);
 		return (-1);
 	}
 	return (0);
@@ -40,7 +49,7 @@ static t_philo	*create_philo(t_params *params, size_t idx)
 	{
 		return (NULL);
 	}
-	*philo = (t_philo) {.idx=idx, .params=params, .start.val=false, .terminate.val=false, .hungry.val = true};
+	*philo = (t_philo) {.idx=idx, .params=params, .start.val=false, .hungry.val = true};
 	if (init_locks(philo) == -1)
 	{
 		free(philo);
