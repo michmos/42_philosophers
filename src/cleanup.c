@@ -6,7 +6,7 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 16:30:04 by mmoser            #+#    #+#             */
-/*   Updated: 2024/09/26 22:02:21 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/26 22:58:44 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ void	cleanup_forks(t_philo **philos)
 	free(forks);
 }
 
-// TODO: double check with .h whether everything is being cleaned up
 void	cleanup(t_philo **philos)
 {
 	cleanup_forks(philos);

@@ -6,7 +6,7 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:38:41 by mmoser            #+#    #+#             */
-/*   Updated: 2024/09/24 11:42:28 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/26 22:56:52 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	init_forks(pthread_mutex_t *forks, size_t num)
 		s = pthread_mutex_init(&forks[i], NULL);
 		if (s != 0)
 		{
-			destroy_n_mtxs(forks, i - 1); // TODO: might crash in case i is 0. also should it not be just i - in case of i = 0 you want to cleanup 0. i = 1 you want to cleanup 1
+			destroy_n_mtxs(forks, i);
 			return (-1);
 		}
 		i++;

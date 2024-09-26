@@ -6,7 +6,7 @@
 /*   By: mmoser <mmoser@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 16:52:32 by mmoser            #+#    #+#             */
-/*   Updated: 2024/09/26 22:16:21 by mmoser           ###   ########.fr       */
+/*   Updated: 2024/09/26 23:02:07 by mmoser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,6 @@ typedef struct	s_mtx_bool
 	bool			val;
 } t_mtx_bool;
 
-typedef struct	s_mtx_time
-{
-	pthread_mutex_t	lock;
-	t_micsec		val;
-} t_mtx_time;
-
 typedef enum e_state
 {
 	EATING,
@@ -59,8 +53,8 @@ typedef enum e_state
 typedef struct s_philo
 {
 	t_mtx_bool		start;
-	t_mtx_bool		hungry; // TODO: should be renamed - they can still get hungry after they've eaten enough times
-	pthread_mutex_t	eat_lock; // TODO: init and stuff
+	t_mtx_bool		hungry;
+	pthread_mutex_t	eat_lock;
 
 	pthread_t		tid;
 	size_t			idx;
@@ -73,28 +67,6 @@ typedef struct s_philo
 	const t_params	*params;
 } t_philo;
 
-void		*lifecycle(void *arg);
-
-// utils.c ------------------------------------------------------------------ //
-int			ft_isdigit(int c);
-int			ft_atoi(const char *nptr);
-size_t		ft_strlen(const char *str);
-t_micsec	get_mic_sec_since(t_micsec start_time);
-bool		has_syntax_err(char *argv[]);
-void		join_philos(t_philo **philos);
-int			wait_mic_sec(t_micsec	duration);
-
-// output.c ----------------------------------------------------------------- //
-int		print_state_change(t_state state, t_philo *philo, t_micsec time_stamp);
-void	put_err(const char *msg);
-
-// free.c ------------------------------------------------------------------- //
-void	sfree(void **ptr);
-int		destroy_n_mtxs(pthread_mutex_t *mtxs, size_t n);
-void	cleanup_philo(t_philo *philo);
-void	cleanup_philos(t_philo **philos);
-void	cleanup_forks(t_philo **philos);
-void	cleanup(t_philo **philos);
 
 // setup.c ------------------------------------------------------------------ //
 int		setup_simulation(char *argv[], t_philo ***philos);
@@ -105,16 +77,40 @@ t_philo	**create_philos(t_params *params);
 // add_forks.c -------------------------------------------------------------- //
 int		add_forks(t_philo **philos, size_t num_philos);
 
-// monitoring.c 0------------------------------------------------------------ //
-void	monitor_philos(t_philo **philos);
+// start.c ------------------------------------------------------------------ //
+void	start_simulation(t_philo **philos);
+
+// lifecycle.c -------------------------------------------------------------- //
+void		*lifecycle(void *arg);
 
 // activities.c ------------------------------------------------------------- //
 int		eat(t_philo *philo);
 int		my_sleep(t_philo *philo);
 int		think(t_philo *philo);
 
-// start.c ------------------------------------------------------------------ //
-void	start_simulation(t_philo **philos);
+// monitoring.c ------------------------------------------------------------- //
+void	monitor_philos(t_philo **philos);
+
+// output.c ----------------------------------------------------------------- //
+int		print_state_change(t_state state, t_philo *philo, t_micsec time_stamp);
+void	put_err(const char *msg);
+
+// cleanup.c ---------------------------------------------------------------- //
+void	sfree(void **ptr);
+int		destroy_n_mtxs(pthread_mutex_t *mtxs, size_t n);
+void	cleanup_philo(t_philo *philo);
+void	cleanup_philos(t_philo **philos);
+void	cleanup_forks(t_philo **philos);
+void	cleanup(t_philo **philos);
+
+// utils.c ------------------------------------------------------------------ //
+int			ft_isdigit(int c);
+int			ft_atoi(const char *nptr);
+size_t		ft_strlen(const char *str);
+t_micsec	get_mic_sec_since(t_micsec start_time);
+bool		has_syntax_err(char *argv[]);
+void		join_philos(t_philo **philos);
+int			wait_mic_sec(t_micsec	duration);
 
 // get_set.c ---------------------------------------------------------------- //
 bool	check_mtx_bool(t_mtx_bool	*mtx_bool);

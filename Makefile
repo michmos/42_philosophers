@@ -2,8 +2,9 @@
 NAME	:= philo
 
 SRC_DIR	:= src
-SRCS	:= activities.c add_forks.c create_philos.c free.c \
-		   get_set.c main.c output.c setup.c start.c utils.c monitoring.c lifecycle.c
+SRCS	:= activities.c add_forks.c create_philos.c cleanup.c \
+		   get_set.c main.c output.c setup.c start.c utils.c \
+		   monitoring.c lifecycle.c
 SRCS	:= $(SRCS:%=$(SRC_DIR)/%)
 
 OBJ_DIR	:= .build
